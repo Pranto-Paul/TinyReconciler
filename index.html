@@ -25,6 +25,8 @@
         const description = document.getElementById("description").value;
         const todos = document.getElementById("todos");
 
+        if (!title.trim() || !description.trim()) return;
+
         todos.innerHTML += `
         <div class="todo">
         <h2>${title}</h2>
