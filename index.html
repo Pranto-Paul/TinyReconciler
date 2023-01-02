@@ -11,7 +11,7 @@
       <input type="text" name="description" id="description" />
       <button onclick="addTodo()">Submit</button>
     </div>
-    <div class="todos">
+    <div id="todos">
       <div class="todo">
         <h2>Todo1</h2>
         <p>Lorem ipsum dolor sit amet.</p>
@@ -20,9 +20,20 @@
       </div>
     </div>
     <script>
-      const title = document.getElementById("title").value;
-      const description = document.getElementById("description").value;
-      console.log(title.value, description.value);
+      function addTodo() {
+        const title = document.getElementById("title").value;
+        const description = document.getElementById("description").value;
+        const todos = document.getElementById("todos");
+
+        todos.innerHTML += `
+        <div class="todo">
+        <h2>${title}</h2>
+        <p>${description}</p>
+        <button>Delete</button>
+        <hr />
+      </div>
+        `;
+      }
     </script>
   </body>
 </html>
