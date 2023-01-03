@@ -12,14 +12,15 @@
       <button onclick="addTodo()">Submit</button>
     </div>
     <div id="todos">
-      <div class="todo">
+      <!-- <div class="todo">
         <h2>Todo1</h2>
         <p>Lorem ipsum dolor sit amet.</p>
         <button>Delete</button>
         <hr />
-      </div>
+      </div> -->
     </div>
     <script>
+      let todoId = 1;
       function addTodo() {
         const title = document.getElementById("title").value;
         const description = document.getElementById("description").value;
@@ -39,6 +40,8 @@
 
         const todoDiv = document.createElement("div");
         todoDiv.classList.add("todo");
+        todoDiv.id = todoId;
+        todoId++;
         const h2 = document.createElement("h2");
         const p = document.createElement("p");
         const button = document.createElement("button");
