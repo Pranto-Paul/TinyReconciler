@@ -43,6 +43,17 @@
         const p = document.createElement("p");
         const button = document.createElement("button");
         const hr = document.createElement("hr");
+        h2.innerText = title;
+        p.innerText = description;
+        button.innerText = "Delete";
+
+        todoDiv.appendChild(h2);
+        todoDiv.appendChild(p);
+        todoDiv.appendChild(button);
+        todoDiv.appendChild(hr);
+        console.log(todoDiv);
+
+        todos.appendChild(todoDiv);
       }
     </script>
   </body>
