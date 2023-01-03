@@ -21,6 +21,9 @@
     </div>
     <script>
       let todoId = 1;
+      function deleteTodo(itmeId) {
+        document.getElementById(itmeId).remove();
+      }
       function addTodo() {
         const title = document.getElementById("title").value;
         const description = document.getElementById("description").value;
@@ -41,7 +44,7 @@
         const todoDiv = document.createElement("div");
         todoDiv.classList.add("todo");
         todoDiv.id = todoId;
-        todoId++;
+
         const h2 = document.createElement("h2");
         const p = document.createElement("p");
         const button = document.createElement("button");
@@ -49,6 +52,8 @@
         h2.innerText = title;
         p.innerText = description;
         button.innerText = "Delete";
+        button.id = todoId;
+        button.setAttribute("onClick", `deleteTodo(${todoId})`);
 
         todoDiv.appendChild(h2);
         todoDiv.appendChild(p);
@@ -57,6 +62,7 @@
         console.log(todoDiv);
 
         todos.appendChild(todoDiv);
+        todoId++;
       }
     </script>
   </body>
