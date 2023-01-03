@@ -3,67 +3,89 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Before React</title>
+    <title>Todo App</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="container">
-      <input type="text" name="title" id="title" />
-      <input type="text" name="description" id="description" />
-      <button onclick="addTodo()">Submit</button>
-    </div>
-    <div id="todos">
-      <!-- <div class="todo">
-        <h2>Todo1</h2>
-        <p>Lorem ipsum dolor sit amet.</p>
-        <button>Delete</button>
-        <hr />
-      </div> -->
+      <h1 class="app-title">Tasks</h1>
+      <p class="app-subtitle">Add and manage your daily tasks</p>
+
+      <div class="input-row">
+        <div class="field">
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title" placeholder="Enter task title" />
+        </div>
+        <div class="field">
+          <label for="description">Description</label>
+          <input type="text" name="description" id="description" placeholder="Enter task description" />
+        </div>
+        <button class="submit-btn" onclick="addTodo()">Submit</button>
+      </div>
+
+      <ul id="todos">
+        <li class="todo" id="-3">
+          <h2>Review project requirements</h2>
+          <p>Go through the client specification document and note down open questions.</p>
+          <button onclick="deleteTodo(-3)">Delete</button>
+        </li>
+        <li class="todo" id="-2">
+          <h2>Prepare weekly report</h2>
+          <p>Summarize progress, blockers, and next steps for Friday's stand-up.</p>
+          <button onclick="deleteTodo(-2)">Delete</button>
+        </li>
+        <li class="todo" id="-1">
+          <h2>Update documentation</h2>
+          <p>Add setup instructions and API usage examples to the internal wiki.</p>
+          <button onclick="deleteTodo(-1)">Delete</button>
+        </li>
+      </ul>
     </div>
     <script>
-      let todoId = 1;
-      function deleteTodo(itmeId) {
-        document.getElementById(itmeId).remove();
-      }
-      function addTodo() {
-        const title = document.getElementById("title").value;
-        const description = document.getElementById("description").value;
-        const todos = document.getElementById("todos");
+        let todoId = 1;
+        function deleteTodo(itmeId) {
+          document.getElementById(itmeId).remove();
+        }
+        function addTodo() {
+          const title = document.getElementById("title").value;
+          const description = document.getElementById("description").value;
+          const todos = document.getElementById("todos");
 
-        if (!title.trim() || !description.trim()) return;
+          if (!title.trim() || !description.trim()) return;
 
-        // Bad way
-        //     todos.innerHTML += `
-        //     <div class="todo">
-        //     <h2>${title}</h2>
-        //     <p>${description}</p>
-        //     <button>Delete</button>
-        //     <hr />
-        //   </div>
-        //   `;
+          // Bad way
+          //     todos.innerHTML += `
+          //     <div class="todo">
+          //     <h2>${title}</h2>
+          //     <p>${description}</p>
+          //     <button>Delete</button>
+          //     <hr />
+          //   </div>
+          //   `;
 
-        const todoDiv = document.createElement("div");
-        todoDiv.classList.add("todo");
-        todoDiv.id = todoId;
+          const todoDiv = document.createElement("div");
+          todoDiv.classList.add("todo");
+          todoDiv.id = todoId;
 
-        const h2 = document.createElement("h2");
-        const p = document.createElement("p");
-        const button = document.createElement("button");
-        const hr = document.createElement("hr");
-        h2.innerText = title;
-        p.innerText = description;
-        button.innerText = "Delete";
-        button.id = todoId;
-        button.setAttribute("onClick", `deleteTodo(${todoId})`);
+          const h2 = document.createElement("h2");
+          const p = document.createElement("p");
+          const button = document.createElement("button");
+          const hr = document.createElement("hr");
+          h2.innerText = title;
+          p.innerText = description;
+          button.innerText = "Delete";
+          button.id = todoId;
+          button.setAttribute("onClick", `deleteTodo(${todoId})`);
 
-        todoDiv.appendChild(h2);
-        todoDiv.appendChild(p);
-        todoDiv.appendChild(button);
-        todoDiv.appendChild(hr);
-        console.log(todoDiv);
+          todoDiv.appendChild(h2);
+          todoDiv.appendChild(p);
+          todoDiv.appendChild(button);
+          todoDiv.appendChild(hr);
+          console.log(todoDiv);
 
-        todos.appendChild(todoDiv);
-        todoId++;
-      }
-    </script>
+          todos.appendChild(todoDiv);
+          todoId++;
+        }
+      </script>
   </body>
 </html>
