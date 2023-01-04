@@ -1,5 +1,14 @@
 //states
-const todos = [];
+let todos = [];
+
+function addTodo(newTodo) {
+  const oldTodos = todos;
+  const newTodos = [...todos, newTodo];
+  todos = newTodos;
+  findDiff(oldTodos, newTodos);
+}
+
+function findDiff(params) {}
 
 function createTodoElm(title, des, todoId) {
   //creating todo's elements
