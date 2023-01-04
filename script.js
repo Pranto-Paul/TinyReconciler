@@ -8,7 +8,20 @@ function addTodo(newTodo) {
   findDiff(oldTodos, newTodos);
 }
 
-function findDiff(params) {}
+function toggleTodo(todoId) {
+  const oldTodos = todos;
+  const newTodos = todos.map((todoItem) =>
+    todoItem.id === todoId ? { ...todoItem, done: !todoItem.done } : todoItem,
+  );
+  todos = newTodos;
+  findDiff(oldTodos, newTodos);
+}
+
+function findDiff(oldTodos, newTodos) {
+  // compare the oldTodos with the newTodos
+  // if newTodos are added then addThem in todos state and update the dom
+  // if any property update in existing todos then only update the proper of those object inside todos state and update those only things inside dom
+}
 
 function createTodoElm(title, des, todoId) {
   //creating todo's elements
