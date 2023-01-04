@@ -17,6 +17,13 @@ function toggleTodo(todoId) {
   findDiff(oldTodos, newTodos);
 }
 
+function deleteTodo(todoId) {
+  const oldTodos = todos;
+  const newTodos = todos.filter((todoItem) => todoItem.id !== todoId);
+  todos = newTodos;
+  findDiff(oldTodos, newTodos);
+}
+
 function findDiff(oldTodos, newTodos) {
   // compare the oldTodos with the newTodos
   // if newTodos are added then addThem in todos state and update the dom
