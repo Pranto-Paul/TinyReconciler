@@ -70,6 +70,7 @@ function createTodoElment(todo) {
   li.classList.add("todo");
   li.dataset.id = todo.id;
   checkbox.type = "checkbox";
+  checkbox.checked = todo.done;
   checkbox.classList.add("todo-check");
   checkbox.addEventListener("change", (e) => {
     toggleTodo(todo.id);
@@ -80,8 +81,8 @@ function createTodoElment(todo) {
   body.classList.add("todo-body");
 
   //adding childs to those elements
-  h2.innerText = title;
-  p.innerText = des;
+  h2.innerText = todo.title;
+  p.innerText = todo.des;
   button.innerText = "Delete";
 
   body.appendChild(h2);
