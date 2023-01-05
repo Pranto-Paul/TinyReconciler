@@ -26,8 +26,24 @@ function deleteTodo(todoId) {
 
 function findDiff(oldTodos, newTodos) {
   // compare the oldTodos with the newTodos
-  // if newTodos are added then addThem in todos state and update the dom
-  // if any property update in existing todos then only update the proper of those object inside todos state and update those only things inside dom
+  //for ADD & UPDATE
+  newTodos.forEach((newTodo) => {
+    const exists = oldTodos.find((oldTodo) => oldTodo.id === newTodo);
+    // if newTodos are added then addThem in todos
+    if (!exists) {
+      return;
+    }
+    // if any property update in existing todos then only update the property of the object inside todos dom
+    if (newTodo.title !== exists.title) {
+      //update the title in the dom
+    }
+    if (newTodo.des !== exists.des) {
+      //update the desc in the dom
+    }
+    if (newTodo.done !== exists.done) {
+      //update the done in the dom
+    }
+  });
 }
 
 function createTodoElm(title, des, todoId) {
