@@ -1,6 +1,8 @@
 //states
 let todos = [];
 
+const todoContainer = document.getElementById("todos");
+
 function addTodo(newTodo) {
   const oldTodos = todos;
   const newTodos = [...todos, newTodo];
@@ -28,25 +30,34 @@ function findDiff(oldTodos, newTodos) {
   // compare the oldTodos with the newTodos
   //for ADD & UPDATE
   newTodos.forEach((newTodo) => {
-    const exists = oldTodos.find((oldTodo) => oldTodo.id === newTodo);
+    const exists = oldTodos.find((oldTodo) => oldTodo.id === newTodo.id);
     // if newTodos are added then addThem in todos
     if (!exists) {
+      const todoElement = createTodoElment(newTodo);
+      todoContainer.appendChild(todoElement);
       return;
     }
     // if any property update in existing todos then only update the property of the object inside todos dom
     if (newTodo.title !== exists.title) {
-      //update the title in the dom
+      const element = document.querySelector(`[data-id="${newTodo.id}"]`);
+      const titleElement = element.querySelector("h2");
+      titleElement.innerText = newTodo.title;
     }
     if (newTodo.des !== exists.des) {
-      //update the desc in the dom
+      const element = document.querySelector(`[data-id="${newTodo.id}"]`);
+      const desElemtn = element.querySelector("p");
+      desElemtn.innerText = newTodo.des;
     }
     if (newTodo.done !== exists.done) {
-      //update the done in the dom
+      const element = document.querySelector(`[data-id="${newTodo.id}"]`);
+      const checkbox = element.querySelector(".todo-check");
+      checkbox.checked = newTodo.done;
+      element.classList.toggle("done", newTodo.done);
     }
   });
 }
 
-function createTodoElm(title, des, todoId) {
+function createTodoElment(todo) {
   //creating todo's elements
   const li = document.createElement("li");
   const checkbox = document.createElement("input");
@@ -57,14 +68,16 @@ function createTodoElm(title, des, todoId) {
 
   // adding attributes to those elements
   li.classList.add("todo");
-  li.id = todoId;
+  li.dataset.id = todo.id;
   checkbox.type = "checkbox";
   checkbox.classList.add("todo-check");
   checkbox.addEventListener("change", (e) => {
-    e.target.closest(".todo").classList.toggle("done", e.target.checked);
+    toggleTodo(todo.id);
+  });
+  button.addEventListener("click", (e) => {
+    deleteTodo(todo.id);
   });
   body.classList.add("todo-body");
-  button.setAttribute("onClick", `deleteTodo(${todoId})`);
 
   //adding childs to those elements
   h2.innerText = title;
