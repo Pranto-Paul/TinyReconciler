@@ -3,11 +3,28 @@ let todos = [];
 
 const todoContainer = document.getElementById("todos");
 
-function addTodo(newTodo) {
+function addTodo() {
+  const titleInput = document.getElementById("title");
+  const desInput = document.getElementById("description");
+
+  const title = titleInput.value;
+  const des = desInput.value;
+
+  const newTodo = {
+    id: crypto.randomUUID(),
+    title,
+    des,
+    done: false,
+  };
+
   const oldTodos = todos;
   const newTodos = [...todos, newTodo];
   todos = newTodos;
+
   findDiff(oldTodos, newTodos);
+
+  titleInput.value = "";
+  desInput.value = "";
 }
 
 function toggleTodo(todoId) {
