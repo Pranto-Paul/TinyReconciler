@@ -72,6 +72,15 @@ function findDiff(oldTodos, newTodos) {
       element.classList.toggle("done", newTodo.done);
     }
   });
+  oldTodos.forEach((oldTodo) => {
+    const exists = newTodos.find((newTodo) => newTodo.id === oldTodo.id);
+    if (!exists) {
+      const element = document.querySelector(`[data-id="${oldTodo.id}"]`);
+      if (element) {
+        element.remove();
+      }
+    }
+  });
 }
 
 function createTodoElment(todo) {
@@ -111,8 +120,4 @@ function createTodoElment(todo) {
   li.appendChild(button);
 
   return li;
-}
-
-function deleteTodoFromDom(todoId) {
-  document.getElementById(itmeId).remove();
 }

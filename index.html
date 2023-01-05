@@ -33,51 +33,7 @@
         <button class="submit-btn" onclick="addTodo()">Submit</button>
       </div>
 
-      <ul id="todos">
-        <li class="todo" id="-3">
-          <input
-            type="checkbox"
-            class="todo-check"
-            onchange="this.closest('.todo').classList.toggle('done', this.checked)"
-          />
-          <div class="todo-body">
-            <h2>Review project requirements</h2>
-            <p>
-              Go through the client specification document and note down open
-              questions.
-            </p>
-          </div>
-          <button onclick="deleteTodo(-3)">Delete</button>
-        </li>
-        <li class="todo" id="-2">
-          <input
-            type="checkbox"
-            class="todo-check"
-            onchange="this.closest('.todo').classList.toggle('done', this.checked)"
-          />
-          <div class="todo-body">
-            <h2>Prepare weekly report</h2>
-            <p>
-              Summarize progress, blockers, and next steps for Friday's stand-up.
-            </p>
-          </div>
-          <button onclick="deleteTodo(-2)">Delete</button>
-        </li>
-        <li class="todo" id="-1">
-          <input
-            type="checkbox"
-            class="todo-check"
-            onchange="this.closest('.todo').classList.toggle('done', this.checked)"
-          />
-          <div class="todo-body">
-            <h2>Update documentation</h2>
-            <p>
-              Add setup instructions and API usage examples to the internal wiki.
-            </p>
-          </div>
-          <button onclick="deleteTodo(-1)">Delete</button>
-        </li>
-      </ul>
+      <ul id="todos"></ul>
     </div>
     <script src="script.js"></script>
   </body>
