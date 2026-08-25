@@ -1,16 +1,31 @@
-//states
-let todos = [];
+import "./style.css";
 
-const todoContainer = document.getElementById("todos");
+type Todo = {
+  id: string;
+  title: string;
+  des: string;
+  done: boolean;
+};
+
+//states
+let todos:Todo[] = [];
+
+const todoContainer = document.getElementById("todos")!;
+const submitBtn = document.querySelector(".submit-btn")!;
+submitBtn.addEventListener("click", addTodo);
+
+
 
 function addTodo() {
-  const titleInput = document.getElementById("title");
-  const desInput = document.getElementById("description");
+  const titleInput = document.getElementById("title") as HTMLInputElement;
+  const desInput = document.getElementById("description") as HTMLInputElement;
 
   const title = titleInput.value;
   const des = desInput.value;
 
-  const newTodo = {
+  if(!title.trim() || !des.trim()) return
+
+  const newTodo:Todo = {
     id: crypto.randomUUID(),
     title,
     des,
@@ -27,7 +42,7 @@ function addTodo() {
   desInput.value = "";
 }
 
-function toggleTodo(todoId) {
+function toggleTodo(todoId: string) {
   const oldTodos = todos;
   const newTodos = todos.map((todoItem) =>
     todoItem.id === todoId ? { ...todoItem, done: !todoItem.done } : todoItem,
@@ -36,38 +51,40 @@ function toggleTodo(todoId) {
   findDiff(oldTodos, newTodos);
 }
 
-function deleteTodo(todoId) {
+function deleteTodo(todoId:string) {
   const oldTodos = todos;
   const newTodos = todos.filter((todoItem) => todoItem.id !== todoId);
   todos = newTodos;
   findDiff(oldTodos, newTodos);
 }
 
-function findDiff(oldTodos, newTodos) {
+function findDiff(oldTodos:Todo[], newTodos:Todo[]) {
   // compare the oldTodos with the newTodos
   //for ADD & UPDATE
   newTodos.forEach((newTodo) => {
     const exists = oldTodos.find((oldTodo) => oldTodo.id === newTodo.id);
     // if newTodos are added then addThem in todos
     if (!exists) {
-      const todoElement = createTodoElment(newTodo);
+      const todoElement = createTodoElement(newTodo);
       todoContainer.appendChild(todoElement);
       return;
     }
     // if any property update in existing todos then only update the property of the object inside todos dom
+    const element = document.querySelector(
+      `[data-id="${newTodo.id}"]`
+    );
+    if (!element) return;
+
     if (newTodo.title !== exists.title) {
-      const element = document.querySelector(`[data-id="${newTodo.id}"]`);
-      const titleElement = element.querySelector("h2");
+      const titleElement = element.querySelector("h2")!;
       titleElement.innerText = newTodo.title;
     }
     if (newTodo.des !== exists.des) {
-      const element = document.querySelector(`[data-id="${newTodo.id}"]`);
-      const desElemtn = element.querySelector("p");
+      const desElemtn = element.querySelector("p")!;
       desElemtn.innerText = newTodo.des;
     }
     if (newTodo.done !== exists.done) {
-      const element = document.querySelector(`[data-id="${newTodo.id}"]`);
-      const checkbox = element.querySelector(".todo-check");
+      const checkbox = element.querySelector<HTMLInputElement>(".todo-check")!;
       checkbox.checked = newTodo.done;
       element.classList.toggle("done", newTodo.done);
     }
@@ -77,13 +94,13 @@ function findDiff(oldTodos, newTodos) {
     if (!exists) {
       const element = document.querySelector(`[data-id="${oldTodo.id}"]`);
       if (element) {
-        element.remove();
+        element?.remove();
       }
     }
   });
 }
 
-function createTodoElment(todo) {
+function createTodoElement(todo:Todo) {
   //creating todo's elements
   const li = document.createElement("li");
   const checkbox = document.createElement("input");
@@ -98,17 +115,17 @@ function createTodoElment(todo) {
   checkbox.type = "checkbox";
   checkbox.checked = todo.done;
   checkbox.classList.add("todo-check");
-  checkbox.addEventListener("change", (e) => {
+  checkbox.addEventListener("change", () => {
     toggleTodo(todo.id);
   });
-  button.addEventListener("click", (e) => {
+  button.addEventListener("click", () => {
     deleteTodo(todo.id);
   });
   body.classList.add("todo-body");
 
   //adding childs to those elements
-  h2.innerText = todo.title;
-  p.innerText = todo.des;
+  h2.textContent = todo.title;
+  p.textContent = todo.des;
   button.innerText = "Delete";
 
   body.appendChild(h2);
@@ -121,3 +138,4 @@ function createTodoElment(todo) {
 
   return li;
 }
+
